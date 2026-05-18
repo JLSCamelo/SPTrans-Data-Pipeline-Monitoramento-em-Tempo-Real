@@ -1,5 +1,8 @@
 from sqlalchemy import create_engine, Column, String, Integer, Boolean, Float, ForeignKey#Permissao de conectar uma tabela em outra tabela
 from sqlalchemy.orm import declarative_base, sessionmaker
+from database import Base
+
+
 #cria a conexão com o banco
 db = create_engine("sqlite:///banco.db")
 #cria a base do mando de dados
@@ -33,7 +36,7 @@ class Paradas(Base):
 
     nome_parada = Column("nome_parada", String)
     endereco = Column("endereco", String)
-    latidute = Column("latitude", Float)
+    latitude = Column("latitude", Float)
     longitude = Column("longitude", Float)
 
 class veiculos(Base):
