@@ -8,12 +8,14 @@ from database import db, Base
 # Importa as rotas corretamente usando pseudónimos
 from linhas_routes import router as linhas_router
 from paradas_routes import router as paradas_router
+from previsao_routes import router as previsao_router
 
 app = FastAPI()
 
 # Inclui as rotas na tua aplicação FastAPI
 app.include_router(linhas_router)
 app.include_router(paradas_router)
+app.include_router(previsao_router)
 
 # Configuração da API Externa da SPTrans
 token = "a8039497f56e36abb76cf6587c3458b11eb094481d2e41a7151270568e5128fe"
