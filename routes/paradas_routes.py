@@ -1,11 +1,15 @@
-from fastapi import APIRouter, HTTPException
-import requests
 from database import db
 from sqlalchemy.orm import sessionmaker
 from models import Paradas
+from fastapi import APIRouter, HTTPException
+import requests
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 router = APIRouter(prefix="/paradas", tags=["Paradas"])
-
+token = os.getenv("SPTRANS_TOKEN")
 ConfigSessao = sessionmaker(bind=db)
 
 @router.post("/atualizar")
@@ -14,7 +18,6 @@ async def atualizar_paradas():
     Rota que faz login na SPTrans, realiza uma varredura por tipos de logradouros
     para capturar o máximo de paradas da cidade sem duplicar, e atualiza o banco.db.
     """
-    token = "a8039497f56e36abb76cf6587c3458b11eb094481d2e41a7151270568e5128fe"
     session_api = requests.Session()
 
     # 1. Autenticação obrigatória na API Olho Vivo
@@ -90,20 +93,8 @@ async def buscar_paradas():
         return paradas
     finally:
         #fechar conexão com o banco
-        banco.close
+        banco.close()
 
-@router.get("/{parada_id}")
-async def buscar_parada_id(parada_id: int):#Cria função para buscar, e após coloca o int como o valor do id
-    #Abre sessão no banco
-    banco=ConfigSessao()
-    try: 
-        parada = banco.query(Paradas).filter(Paradas.id == parada_id).first()
-        if not parada: # Se não encontrar a parada ou estuver vazio, retorna erro 404
-            raise HTTPException(status_code=404, detail="Parada não encontrada")
-        return parada
-    finally:
-        #fecha conexão com o banco
-        banco.close
 
 @router.get("/buscar/{nome}")
 async def buscar_parada_nome(nome: str):
@@ -117,4 +108,20 @@ async def buscar_parada_nome(nome: str):
     finally:
         #fechya conexão com banco
         banco.close()
+
+
+@router.get("/{parada_id}")
+async def buscar_parada_id(parada_id: int):#Cria função para buscar, e após coloca o int como o valor do id
+    #Abre sessão no banco
+    banco=ConfigSessao()
+    try: 
+        parada = banco.query(Paradas).filter(Paradas.id == parada_id).first()
+        if not parada: # Se não encontrar a parada ou estuver vazio, retorna erro 404
+            raise HTTPException(status_code=404, detail="Parada não encontrada")
+        return parada
+    finally:
+        #fecha conexão com o banco
+        banco.close()
+
+
     

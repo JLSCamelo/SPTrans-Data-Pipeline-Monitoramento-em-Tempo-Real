@@ -1,9 +1,14 @@
-from fastapi import APIRouter, HTTPException
-import requests
 from database import db
 from sqlalchemy.orm import sessionmaker
 from models import Linha
+from fastapi import APIRouter, HTTPException
+import requests
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
+
+token = os.getenv("SPTRANS_TOKEN")
 router = APIRouter(prefix="/linhas", tags=["Linhas"])
 
 ConfigSessao = sessionmaker(bind=db)
@@ -14,7 +19,6 @@ async def atualizar_linhas():
     Rota que faz login na SPTrans, varre os dígitos de 0 a 9 para capturar
     todas as linhas do sistema sem duplicar, e atualiza o banco.db.
     """
-    token = "a8039497f56e36abb76cf6587c3458b11eb094481d2e41a7151270568e5128fe"
     session_api = requests.Session()
     
     # 1. Autenticação obrigatória na API Olho Vivo

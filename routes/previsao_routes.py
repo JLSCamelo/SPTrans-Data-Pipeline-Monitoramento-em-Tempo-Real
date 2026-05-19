@@ -1,9 +1,13 @@
 from fastapi import APIRouter, HTTPException
 import requests
+import os
+from dotenv import load_dotenv
 
 
-router=APIRouter(prefix="/previsoes", tags="Previsões")
-token="a8039497f56e36abb76cf6587c3458b11eb094481d2e41a7151270568e5128fe" \
+
+router=APIRouter(prefix="/previsoes", tags=["Previsões"])
+token = os.getenv("SPTRANS_TOKEN")
+
 
 def autenticar_sptrans():
     session_api = requests.Session()
