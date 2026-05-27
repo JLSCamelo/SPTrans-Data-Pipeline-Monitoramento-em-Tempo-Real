@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 
 
-router=APIRouter(prefix="/previsoes", tags=["Previsões"])
+router=APIRouter(prefix="/previsao", tags=["Previsões"])
 token = os.getenv("SPTRANS_TOKEN")
 
 
@@ -30,20 +30,20 @@ async def listar_previsoes():
     )
     return resposta.json()
 
-@router.get("linha/{codigo_linha}")
+@router.get("/linha/{codigo_linha}")
 async def previsao_linha(codigo_linha: int):
     session_api = autenticar_sptrans()
 
-    resposta = session_api(
+    resposta = session_api.get(
         f"http://api.olhovivo.sptrans.com.br/v2.1/Previsao/Linha?codigoLinha={codigo_linha}"
     )
     return resposta.json()
 
-@router.get("parada/{codigo_parada}")
+@router.get("/parada/{codigo_parada}")
 async def previsao_parada(codigo_parada: int):
     session_api = autenticar_sptrans()
 
-    resposta = session_api(
+    resposta = session_api.get(
         f"http://api.olhovivo.sptrans.com.br/v2.1/Previsao/Parada?codigoParada={codigo_parada}"
     )
     return resposta.json()

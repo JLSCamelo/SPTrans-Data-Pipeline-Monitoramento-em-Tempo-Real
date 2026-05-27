@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPTrans Monitoramento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="hero">
+        <img src="./img/onibus.png" alt="Ônibus urbano em São Paulo">
+
+        <div class="hero-content">
+            <h1>SPTrans Monitoramento</h1>
+            <p>Consulta de linhas, paradas, empresas e previsões em tempo real</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Linhas</h2>
+                <span>Buscar linhas salvas no banco</span>
+            </div>
+
+            <div class="actions">
+                <button id="btnListarLinhas">Listar linhas</button>
+
+                <div class="input-group">
+                    <input id="inputNumeroLinha" type="text" placeholder="Número da linha">
+                    <button id="btnBuscarLinha">Buscar</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Paradas</h2>
+                <span>Consultar pontos de parada</span>
+            </div>
+
+            <div class="actions">
+                <button id="btnListarParadas">Listar paradas</button>
+
+                <div class="input-group">
+                    <input id="inputNomeParada" type="text" placeholder="Nome da parada">
+                    <button id="btnBuscarParadaNome">Buscar por nome</button>
+                </div>
+
+                <div class="input-group">
+                    <input id="inputIdParada" type="number" placeholder="ID da parada">
+                    <button id="btnBuscarParadaId">Buscar por ID</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Previsão</h2>
+                <span>Buscar chegada por código da parada</span>
+            </div>
+
+            <div class="actions">
+                <div class="input-group">
+                    <input id="inputCodigoParada" type="number" placeholder="Código da parada">
+                    <button id="btnPrevisaoParada">Buscar previsão</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Empresas</h2>
+                <span>Consultar empresas operadoras</span>
+            </div>
+
+            <div class="actions">
+                <button id="btnEmpresas">Listar empresas</button>
+            </div>
+        </section>
+
+        <section class="result-panel">
+            <div class="panel-header">
+                <h2>Resultado</h2>
+                <span>Resposta da API</span>
+            </div>
+
+            <div id="resultado" class="result-state">Use os filtros acima para consultar os dados.</div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

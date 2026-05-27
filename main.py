@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 import requests
 from sqlalchemy.orm import sessionmaker
-
+from fastapi.middleware.cors import CORSMiddleware
 from models import Linha
 from database import db, Base
 
@@ -14,10 +14,18 @@ from routes.velocidade_routes import router as velocidade_router
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Inclui as rotas na tua aplicação FastAPI
 app.include_router(linhas_router)
 app.include_router(paradas_router)
-app.include_router(previsao_router)
+app.include_router(previsao_router, prefix="/previsoes")
 app.include_router(empresas_router)
 app.include_router(velocidade_router)
 

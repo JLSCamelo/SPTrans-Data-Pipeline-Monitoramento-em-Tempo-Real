@@ -93,7 +93,7 @@ async def listar_linhas():
         return linhas
     finally:
         #fecha a conexão com o banco
-        banco.close
+        banco.close()
 
 
 @router.get("/buscar/{numero}")
@@ -116,7 +116,7 @@ async def buscar_linha_numero(numero: str):
 
 
 
-router.get("/{linha_id}")
+@router.get("/{linha_id}")
 async def buscar_linha_id(linha_id: int):
     #abre uma sessão com o banco
     banco = ConfigSessao()
